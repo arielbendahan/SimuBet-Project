@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "47549859448",
+    "project_id": "simubet-project",
+    "storage_bucket": "simubet-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47549859448:android:a853991ed5cec970ee0f8d",
+        "android_client_info": {
+          "package_name": "com.example.simubetproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6fLQnMi4Tj4ItR6pDW6WL0zmUqqrQQjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
