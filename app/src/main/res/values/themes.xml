@@ -7,4 +7,13 @@
     </style>
 
     <style name="Theme.SimuBetProject" parent="Base.Theme.SimuBetProject" />
+
+    <style name="Theme.SimuBetProject.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SimuBetProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SimuBetProject.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
