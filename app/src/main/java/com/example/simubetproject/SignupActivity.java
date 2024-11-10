@@ -18,14 +18,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignupActivity extends AppCompatActivity {
-    // Username has been commented out as real-time database or Firestore is not being used
-    // Could be implemented in the future
 
     EditText email, firstName, lastName, username, password, confirmPassword;
     Button signup, login;
     FirebaseAuth mAuth;
+    DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,13 @@ public class SignupActivity extends AppCompatActivity {
         email = findViewById(R.id.emailEditText);
         firstName = findViewById(R.id.firstNameEditText);
         lastName = findViewById(R.id.lastNameEditText);
-        //username = findViewById(R.id.usernameSignup);
+        username = findViewById(R.id.usernameSignup);
         password = findViewById(R.id.passwordSignup);
         confirmPassword = findViewById(R.id.confirmPassword);
         signup = findViewById(R.id.signupButton);
         login = findViewById(R.id.loginLinkButton);
         mAuth = FirebaseAuth.getInstance();
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
 
         // Login button
@@ -66,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
         String emailText = email.getText().toString().trim();
         String firstNameText = firstName.getText().toString().trim();
         String lastNameText = lastName.getText().toString().trim();
-        //String usernameText = username.getText().toString().trim();
+        String usernameText = username.getText().toString().trim();
         String passwordText = password.getText().toString().trim();
         String confirmPasswordText = confirmPassword.getText().toString().trim();
 
@@ -88,11 +93,11 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-//        if (usernameText.isEmpty()) {
-//            username.setError("Username is required");
-//            username.requestFocus();
-//            return;
-//        }
+        if (usernameText.isEmpty()) {
+            username.setError("Username is required");
+            username.requestFocus();
+            return;
+        }
 
         if (passwordText.isEmpty()) {
             password.setError("Password is required");
@@ -116,11 +121,32 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(SignupActivity.this, "User registered succesfully", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) {
+                        String userId = user.getUid();
+                        User newUser = new User(firstNameText, lastNameText, emailText, usernameText);
+                        databaseUsers.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task)
+                            {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(SignupActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else
+                                {
+                                    Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+                        });
+
+                    }
+                }
+                else
+                {
                     Toast.makeText(SignupActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                     email.setError("Email is already in use");
                     email.requestFocus();

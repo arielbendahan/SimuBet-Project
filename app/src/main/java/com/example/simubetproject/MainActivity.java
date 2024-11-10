@@ -21,6 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.simubetproject.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     Button logoutButton;
     FirebaseAuth mAuth;
+    DatabaseReference databaseUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mAuth = FirebaseAuth.getInstance();
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         setSupportActionBar(binding.appBarMain.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
@@ -50,22 +57,41 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Retrieve the current user from Firebase Authentication
+        // Gets the email and username of the current user
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
-            String userEmail = currentUser.getEmail();
-            String userName = currentUser.getDisplayName();
+            String userEmail = currentUser.getEmail(); // Get the user email; gets this from the authentication
+            String userId = currentUser.getUid(); // Get the user ID; needed to access the username from the realtime database
 
-            // Set the user's email and username in the nav_header_main
             View headerView = navigationView.getHeaderView(0);
             TextView emailTextView = headerView.findViewById(R.id.emailTextView);
-            TextView nameTextView = headerView.findViewById(R.id.nameTextView);
+            TextView usernameTextView = headerView.findViewById(R.id.usernameTextView);
             logoutButton = headerView.findViewById(R.id.logoutButton);
 
             emailTextView.setText(userEmail);
-            nameTextView.setText(userName);
+
+            // Reference to the user node in the database
+            databaseUsers = FirebaseDatabase.getInstance().getReference("users").child(userId);
+
+            // Retrieve username from the database and set it
+            databaseUsers.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String userName = dataSnapshot.child("username").getValue(String.class);
+                    if (userName != null) {
+                        usernameTextView.setText(userName);
+                    }
+                }
+
+                // Error handling in case the username cannot be retrieved
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(MainActivity.this, "Failed to load username", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
+        // Logout button
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
