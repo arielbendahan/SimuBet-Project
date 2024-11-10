@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,7 +11,7 @@
 
     <!-- Email Field -->
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
@@ -23,7 +21,7 @@
 
     <!-- First Name Field -->
     <EditText
-        android:id="@+id/firstName"
+        android:id="@+id/firstNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="First Name"
@@ -33,7 +31,7 @@
 
     <!-- Last Name Field -->
     <EditText
-        android:id="@+id/lastName"
+        android:id="@+id/lastNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Last Name"
@@ -42,14 +40,14 @@
         android:layout_marginBottom="12dp" />
 
     <!-- Username Field -->
-    <EditText
-        android:id="@+id/usernameSignup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:inputType="text"
-        android:padding="12dp"
-        android:layout_marginBottom="12dp" />
+<!--    <EditText-->
+<!--        android:id="@+id/usernameSignup"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Username"-->
+<!--        android:inputType="text"-->
+<!--        android:padding="12dp"-->
+<!--        android:layout_marginBottom="12dp" />-->
 
     <!-- Password Field -->
     <EditText
@@ -80,5 +78,15 @@
         android:textColor="#FFFFFF"
         android:padding="12dp"
         android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/loginLinkButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Login"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/white"
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>
