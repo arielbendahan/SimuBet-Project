@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -19,17 +18,17 @@
         android:layout_marginBottom="50dp" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/emailLoginText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="text"
         android:padding="12dp"
         android:layout_marginBottom="16dp" />
 
     <!-- Password Field -->
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/passwordLoginText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -48,13 +47,15 @@
         android:layout_marginBottom="16dp" />
 
     <!-- Sign-up Text -->
-    <TextView
-        android:id="@+id/signup"
+    <Button
+        android:id="@+id/signupLinkButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Sign up"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:backgroundTint="@color/white"
         android:textSize="14sp"
-        android:layout_gravity="center"
-        android:paddingTop="16dp" />
+        android:layout_marginTop="20dp" />
 
 </LinearLayout>
