@@ -10,16 +10,19 @@
         android:name="com.example.simubetproject.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.simubetproject.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/nav_soccer"
+        android:name="com.example.simubetproject.ui.soccer.SoccerFragment"
+        android:label="fragment_soccer"
+        tools:layout="@layout/fragment_soccer" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.simubetproject.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_history"
+        android:name="com.example.simubetproject.ui.history.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/nav_basket"
+        android:name="com.example.simubetproject.ui.basket.BasketFragment"
+        android:label="fragment_basket"
+        tools:layout="@layout/fragment_basket" />
 </navigation>
