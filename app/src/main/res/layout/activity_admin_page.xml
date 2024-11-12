@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="View users"
         android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
     <Button
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:text="Set new bets"
         android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
     <Button
@@ -46,6 +48,7 @@
         android:layout_height="wrap_content"
         android:text="View ongoing bets"
         android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
     <!-- More buttons could be added if needed -->
@@ -61,6 +64,7 @@
         android:layout_height="wrap_content"
         android:text="Logout"
         android:backgroundTint="@color/blue"
+        android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
 </LinearLayout>
