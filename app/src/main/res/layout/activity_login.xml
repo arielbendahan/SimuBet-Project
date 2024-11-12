@@ -46,6 +46,13 @@
         android:padding="12dp"
         android:layout_marginBottom="16dp" />
 
+    <ProgressBar
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
     <!-- Sign-up Text -->
     <Button
         android:id="@+id/signupLinkButton"
@@ -57,5 +64,7 @@
         android:backgroundTint="@color/white"
         android:textSize="14sp"
         android:layout_marginTop="20dp" />
+
+
 
 </LinearLayout>
