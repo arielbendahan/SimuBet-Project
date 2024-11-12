@@ -124,7 +124,7 @@ public class SignupActivity extends AppCompatActivity {
                     FirebaseUser user = mAuth.getCurrentUser();
                     if (user != null) {
                         String userId = user.getUid();
-                        User newUser = new User(firstNameText, lastNameText, emailText, usernameText);
+                        User newUser = new User(firstNameText, lastNameText, emailText, usernameText,"user");
                         databaseUsers.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task)
