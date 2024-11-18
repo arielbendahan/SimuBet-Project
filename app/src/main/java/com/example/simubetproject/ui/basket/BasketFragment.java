@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 public class BasketFragment extends Fragment {
 
-    private TextView textView;
     private RequestQueue requestQueue;
 
     public BasketFragment() {
@@ -30,7 +29,6 @@ public class BasketFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
-        textView = view.findViewById(R.id.textView);
         requestQueue = Volley.newRequestQueue(requireContext());
         fetchBasketballData();
         return view;
@@ -45,13 +43,13 @@ public class BasketFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Update the UI with the fetched data
-                        textView.setText(response.toString());
+                        //textView.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        textView.setText("Error: " + error.getMessage());
+                        //textView.setText("Error: " + error.getMessage());
                     }
                 });
 
