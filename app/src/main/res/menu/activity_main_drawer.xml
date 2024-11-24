@@ -19,6 +19,41 @@
         <item
             android:id="@+id/nav_basket"
             android:icon="@drawable/ic_menu_basket"
-            android:title="Basket"/>
+            android:title="Basketball" />
+    </group>
+
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title=""/>
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/logoutButton"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout"/>
     </group>
 </menu>
