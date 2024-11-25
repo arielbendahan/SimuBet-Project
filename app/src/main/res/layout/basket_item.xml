@@ -12,6 +12,13 @@
         android:text="Commence Time"
         android:layout_marginBottom="10dp"
         android:textSize="16sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Winner (Incl. Overtime)"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="100sp"
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,9 +34,13 @@
             android:layout_marginRight="100sp"/>
 
         <TextView
+            android:id="@+id/homeTeamOddsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Winner (Incl. Overtime)"/>
+            android:text="Home Team Odds"
+            android:gravity="center"/>
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -45,9 +56,15 @@
             android:layout_marginRight="100sp"/>
 
         <TextView
+            android:id="@+id/awayTeamOddsTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="vs"
+            android:text="Away Team Odds"
             android:gravity="center"/>
     </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"/>
 </LinearLayout>
