@@ -13,16 +13,16 @@
     <fragment
         android:id="@+id/nav_soccer"
         android:name="com.example.simubetproject.ui.soccer.SoccerFragment"
-        android:label="fragment_soccer"
+        android:label="Soccer"
         tools:layout="@layout/fragment_soccer" />
     <fragment
         android:id="@+id/nav_history"
         android:name="com.example.simubetproject.ui.history.HistoryFragment"
-        android:label="fragment_history"
+        android:label="History"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/nav_basket"
         android:name="com.example.simubetproject.ui.basket.BasketFragment"
-        android:label="fragment_basket"
+        android:label="Basketball"
         tools:layout="@layout/fragment_basket" />
 </navigation>
