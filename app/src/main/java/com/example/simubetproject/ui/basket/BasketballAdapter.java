@@ -3,6 +3,7 @@ package com.example.simubetproject.ui.basket;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,8 +34,10 @@ public class BasketballAdapter extends RecyclerView.Adapter<BasketballAdapter.Ba
         holder.homeTeamTextView.setText(game.getHomeTeam());
         holder.awayTeamTextView.setText(game.getAwayTeam());
         holder.commenceTimeTextView.setText(game.getCommenceTime());
-        holder.homeOddsTextView.setText(game.getHomeOdds());
-        holder.awayOddsTextView.setText(game.getAwayOdds());
+        holder.homeOddsTextView.setText(game.getHomeTeam());
+        holder.awayOddsTextView.setText(game.getAwayTeam());
+        holder.homeTeamOddsButton.setText(game.getHomeOdds());
+        holder.awayTeamOddsButton.setText(game.getAwayOdds());
     }
 
     @Override
@@ -48,6 +51,7 @@ public class BasketballAdapter extends RecyclerView.Adapter<BasketballAdapter.Ba
         TextView commenceTimeTextView;
         TextView homeOddsTextView;
         TextView awayOddsTextView;
+        Button homeTeamOddsButton, awayTeamOddsButton;
 
         public BasketballGameViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +60,8 @@ public class BasketballAdapter extends RecyclerView.Adapter<BasketballAdapter.Ba
             commenceTimeTextView = itemView.findViewById(R.id.commenceTimeTextView);
             homeOddsTextView = itemView.findViewById(R.id.homeTeamOddsTextView);
             awayOddsTextView = itemView.findViewById(R.id.awayTeamOddsTextView);
+            homeTeamOddsButton = itemView.findViewById(R.id.homeTeamBetButton);
+            awayTeamOddsButton = itemView.findViewById(R.id.awayTeamBetButton);
         }
     }
 }
