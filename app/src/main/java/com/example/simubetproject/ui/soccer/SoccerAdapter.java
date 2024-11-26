@@ -1,5 +1,7 @@
 package com.example.simubetproject.ui.soccer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
 import com.example.simubetproject.ui.basket.BasketballAdapter;
@@ -18,15 +21,17 @@ import java.util.List;
 public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerViewHolder> {
 
     private List<Model> soccerGames;
+    private Context context;
 
-    public SoccerAdapter(List<Model> soccerGames) {
+    public SoccerAdapter(List<Model> soccerGames, Context context) {
         this.soccerGames = soccerGames;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public SoccerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.soccer_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.soccer_item, parent, false);
         return new SoccerViewHolder(view);
     }
 
@@ -49,6 +54,39 @@ public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerView
         holder.homeTeamOddsButton.setText(game.getHomeOdds());
         holder.awayTeamOddsButton.setText(game.getAwayOdds());
         holder.tieOddsButton.setText(game.getTieOdds());
+
+        holder.homeTeamOddsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToCheckout(game.getCommenceTime(), game.getHomeTeam(), game.getAwayTeam(), game.getHomeTeam(), game.getHomeOdds());
+            }
+        });
+
+        holder.awayTeamOddsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToCheckout(game.getCommenceTime(), game.getHomeTeam(), game.getAwayTeam(), game.getAwayTeam(), game.getAwayOdds());
+            }
+        });
+
+        holder.tieOddsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToCheckout(game.getCommenceTime(), game.getHomeTeam(), game.getAwayTeam(), "Tie", game.getTieOdds());
+            }
+        });
+    }
+
+    private void goToCheckout(String time, String homeTeam, String awayTeam, String chosenTeam, String chosenOdds) {
+        Intent intent = new Intent(this.context, CheckoutActivity.class);
+
+        intent.putExtra("commenceTime", time);
+        intent.putExtra("homeTeam", homeTeam);
+        intent.putExtra("awayTeam", awayTeam);
+        intent.putExtra("chosenTeam", chosenTeam);
+        intent.putExtra("chosenOdds", chosenOdds);
+
+        context.startActivity(intent);
     }
 
     @Override

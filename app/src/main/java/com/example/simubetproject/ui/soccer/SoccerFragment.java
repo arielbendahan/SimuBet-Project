@@ -58,7 +58,7 @@ public class SoccerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.football_bundesliga_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         bundesligaGames = new ArrayList<>();
-        adapter = new SoccerAdapter(bundesligaGames);
+        adapter = new SoccerAdapter(bundesligaGames, this.getContext());
         recyclerView.setAdapter(adapter);
 
         fetchFootballData();
