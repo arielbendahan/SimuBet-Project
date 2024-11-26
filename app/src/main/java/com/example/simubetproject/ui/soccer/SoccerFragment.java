@@ -55,7 +55,7 @@ public class SoccerFragment extends Fragment {
         recyclerView = view.findViewById(R.id.football_bundesliga_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         bundesligaGames = new ArrayList<>();
-        adapter = new SoccerAdapter(bundesligaGames);
+        adapter = new SoccerAdapter(bundesligaGames, this.getContext());
         recyclerView.setAdapter(adapter);
 
         fetchFootballData();
@@ -72,7 +72,7 @@ public class SoccerFragment extends Fragment {
                         try {
                             bundesligaGames.clear();
                             for (int i = 0; i < response.length(); i++) {
-                                JSONObject game1 = response.getJSONObject(1);
+                                JSONObject game1 = response.getJSONObject(i);
                                 String homeTeam = game1.getString("home_team");
                                 String awayTeam = game1.getString("away_team");
                                 String time = game1.getString("commence_time");
