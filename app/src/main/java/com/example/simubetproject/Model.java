@@ -6,6 +6,7 @@ public class Model {
     private String commenceTime;
     private String homeOdds;
     private String awayOdds;
+    private String tieOdds;
 
     public Model(String homeTeam, String awayTeam, String commenceTime, String homeOdds, String awayOdds) {
         this.homeTeam = homeTeam;
@@ -13,6 +14,23 @@ public class Model {
         this.commenceTime = commenceTime;
         this.homeOdds = homeOdds;
         this.awayOdds = awayOdds;
+    }
+
+    public String getTieOdds() {
+        return tieOdds;
+    }
+
+    public void setTieOdds(String tieOdds) {
+        this.tieOdds = tieOdds;
+    }
+
+    public Model(String homeTeam, String awayTeam, String commenceTime, String homeOdds, String awayOdds, String tieOdds) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+        this.commenceTime = commenceTime;
+        this.homeOdds = homeOdds;
+        this.awayOdds = awayOdds;
+        this.tieOdds = tieOdds;
     }
 
     public String getHomeTeam() {
