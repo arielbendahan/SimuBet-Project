@@ -9,12 +9,51 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_menu_history"
+            android:title="History"/>
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_soccer"
+            android:icon="@drawable/ic_menu_soccer"
+            android:title="Soccer"/>
+        <item
+            android:id="@+id/nav_basket"
+            android:icon="@drawable/ic_menu_basket"
+            android:title="Basketball" />
+    </group>
+
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title="" />
+    <item
+        android:enabled="false"
+        android:title=""/>
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/logoutButton"
+            android:icon="@drawable/ic_logout"
+            android:title="Logout"/>
     </group>
 </menu>
