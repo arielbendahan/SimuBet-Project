@@ -22,47 +22,36 @@
         android:gravity="start"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Bet Info:"
-            android:textSize="20sp"
-            android:layout_marginVertical="10dp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/bet_time_checkout_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="time"
-            android:textSize="18sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bet Info:"
+                android:textSize="20sp"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/bet_home_team_checkout_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="home team"
-            android:textSize="18sp"/>
+            <TextView
+                android:id="@+id/bet_total_odds_multiplier_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4CAF50"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                android:layout_weight="1"/>
 
-        <TextView
-            android:id="@+id/bet_away_team_checkout_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="away team"
-            android:textSize="18sp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/bet_chosen_team_checkout_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="chosen team"
-            android:textSize="18sp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:id="@+id/bets_info_recyclerView"/>
 
-        <TextView
-            android:id="@+id/bet_chosen_team_odds_checkout_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="odds"
-            android:textSize="18sp"/>
 
     </LinearLayout>
 

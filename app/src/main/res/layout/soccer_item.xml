@@ -68,6 +68,7 @@
                     android:id="@+id/soccer_item_home_team_bet_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/oddsButtonColor"
                     android:text="1.34" />
             </LinearLayout>
 
@@ -90,6 +91,7 @@
                     android:id="@+id/soccer_item_tie_bet_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/oddsButtonColor"
                     android:text="2.30" />
             </LinearLayout>
 
@@ -112,6 +114,7 @@
                     android:id="@+id/soccer_item_away_team_bet_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/oddsButtonColor"
                     android:text="3.40" />
             </LinearLayout>
 

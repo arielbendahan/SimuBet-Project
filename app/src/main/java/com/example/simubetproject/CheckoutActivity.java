@@ -14,12 +14,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class CheckoutActivity extends AppCompatActivity {
 
-    TextView betTimeTextView, betHomeTeamTextView, betAwayTeamTextView, chosenTeamTextView, chosenOddsTextView, totalAmountTextView;
+    RecyclerView betSlipInfoRecyclerView;
+    BetAdapter betAdapter;
+    TextView totalAmountTextView, totalOddsMultiplierTextView;
     Button confirmBetButton, cancelBetButton;
     EditText betAmountPlacedEditText;
+    ArrayList<Model> selectedBets;
+    Double totalOddMultiplier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,27 +37,30 @@ public class CheckoutActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        String betTime = intent.getStringExtra("commenceTime");
-        String betHomeTeam = intent.getStringExtra("homeTeam");
-        String betAwayTeam = intent.getStringExtra("awayTeam");
-        String chosenTeam = intent.getStringExtra("chosenTeam");
-        String chosenOdds = intent.getStringExtra("chosenOdds");
+        selectedBets = intent.getParcelableArrayListExtra("selectedBets");
 
-        betTimeTextView = findViewById(R.id.bet_time_checkout_textView);
-        betHomeTeamTextView = findViewById(R.id.bet_home_team_checkout_textView);
-        betAwayTeamTextView = findViewById(R.id.bet_away_team_checkout_textView);
-        chosenTeamTextView = findViewById(R.id.bet_chosen_team_checkout_textView);
-        chosenOddsTextView = findViewById(R.id.bet_chosen_team_odds_checkout_textView);
         confirmBetButton = findViewById(R.id.confirm_bet_checkout_button);
         cancelBetButton = findViewById(R.id.cancel_bet_checkout_button);
         totalAmountTextView = findViewById(R.id.bet_total_checkout_textView);
         betAmountPlacedEditText = findViewById(R.id.bet_amount_checkout_editText);
+        totalOddsMultiplierTextView = findViewById(R.id.bet_total_odds_multiplier_textView);
 
-        betTimeTextView.setText(betTime);
-        betHomeTeamTextView.setText(betHomeTeam);
-        betAwayTeamTextView.setText(betAwayTeam);
-        chosenTeamTextView.setText(chosenTeam);
-        chosenOddsTextView.setText(chosenOdds);
+        betSlipInfoRecyclerView = findViewById(R.id.bets_info_recyclerView);
+        betSlipInfoRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        betAdapter = new BetAdapter(selectedBets);
+
+        betSlipInfoRecyclerView.setAdapter(betAdapter);
+
+        totalOddMultiplier = 1.0;
+
+        for (Model bet : selectedBets) {
+            Double oddMultiplier = Double.parseDouble(bet.getSelectedBet());
+
+            totalOddMultiplier *= oddMultiplier;
+        }
+
+        totalOddsMultiplierTextView.setText("Total multiplier: x" + totalOddMultiplier);
 
         confirmBetButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +101,9 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 try {
                     double amountBet = Double.parseDouble(input);
-                    double chosenOdd = Double.parseDouble(chosenOdds);
+                    //double chosenOdd = Double.parseDouble(chosenOdds);
 
-                    double total = amountBet * chosenOdd;
+                    double total = amountBet * totalOddMultiplier;
 
                     totalAmountTextView.setText(String.format("Total: $%.2f", total));
                 }
