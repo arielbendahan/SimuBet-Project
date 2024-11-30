@@ -30,9 +30,12 @@ import com.example.simubetproject.ui.basket.BasketballAdapter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -106,11 +109,17 @@ public class SoccerFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
                             bundesligaGames.clear();
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject game1 = response.getJSONObject(i);
                                 String homeTeam = game1.getString("home_team");
                                 String awayTeam = game1.getString("away_team");
                                 String time = game1.getString("commence_time");
+
+                                Date date = inputFormat.parse(time);
+                                String formattedDate = outputFormat.format(date);
                                 //for the odds
 
                                 Map<String, Double> outcomes = new HashMap<>();
@@ -137,7 +146,7 @@ public class SoccerFragment extends Fragment {
                                     }
                                 }
 
-                                bundesligaGames.add(new Model(homeTeam, awayTeam, time, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
+                                bundesligaGames.add(new Model(homeTeam, awayTeam, formattedDate, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
                             }
 
                             adapter.notifyDataSetChanged();
