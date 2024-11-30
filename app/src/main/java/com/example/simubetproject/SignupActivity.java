@@ -105,6 +105,12 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
+        if (passwordText.length() < 6) {
+            password.setError("Password must be at least 6 characters");
+            password.requestFocus();
+            return;
+        }
+
         if (confirmPasswordText.isEmpty()) {
             confirmPassword.setError("Confirm password is required");
             confirmPassword.requestFocus();
