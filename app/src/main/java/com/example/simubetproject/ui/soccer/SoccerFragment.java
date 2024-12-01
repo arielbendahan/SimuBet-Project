@@ -1,5 +1,6 @@
 package com.example.simubetproject.ui.soccer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -20,25 +22,33 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
 import com.example.simubetproject.ui.basket.BasketballAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class SoccerFragment extends Fragment {
     private final String API_KEY = "02959fcfad0e49335d7b46045bdde808";
     private RequestQueue requestQueue;
+    //bets to be send to the checkout
+    private ArrayList<Model> selectedBets;
     private List<Model> bundesligaGames;
     private RecyclerView recyclerView;
     private SoccerAdapter adapter;
+    Button goToCheckoutButton;
 
 
     public SoccerFragment() {
@@ -54,9 +64,38 @@ public class SoccerFragment extends Fragment {
         requestQueue = Volley.newRequestQueue(requireContext());
         recyclerView = view.findViewById(R.id.football_bundesliga_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        goToCheckoutButton = view.findViewById(R.id.soccer_item_checkout_button);
+
+        selectedBets = new ArrayList<>();
+
         bundesligaGames = new ArrayList<>();
-        adapter = new SoccerAdapter(bundesligaGames);
+
+        adapter = new SoccerAdapter(bundesligaGames, selectedBets, this.getContext(), new betValidationListener() {
+            @Override
+            public void onBetStateChange(Model bet) {
+                //bets validation. Communication between an element from the fragment and the bets from the adapter.
+                if (bet.getAmountOddsButtonsPressed() > 2) {
+                    //bet is not valid
+                    goToCheckoutButton.setEnabled(false);
+                    return;
+                }
+
+                goToCheckoutButton.setEnabled(true);
+            }
+        });
         recyclerView.setAdapter(adapter);
+
+        goToCheckoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), CheckoutActivity.class);
+
+                intent.putParcelableArrayListExtra("selectedBets", selectedBets);
+
+                view.getContext().startActivity(intent);
+            }
+        });
 
         fetchFootballData();
         return view;
@@ -71,11 +110,17 @@ public class SoccerFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         try {
                             bundesligaGames.clear();
+                            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault());
+                            SimpleDateFormat outputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a", Locale.getDefault());
+
                             for (int i = 0; i < response.length(); i++) {
-                                JSONObject game1 = response.getJSONObject(1);
+                                JSONObject game1 = response.getJSONObject(i);
                                 String homeTeam = game1.getString("home_team");
                                 String awayTeam = game1.getString("away_team");
                                 String time = game1.getString("commence_time");
+
+                                Date date = inputFormat.parse(time);
+                                String formattedDate = outputFormat.format(date);
                                 //for the odds
 
                                 Map<String, Double> outcomes = new HashMap<>();
@@ -102,7 +147,8 @@ public class SoccerFragment extends Fragment {
                                     }
                                 }
 
-                                bundesligaGames.add(new Model(homeTeam, awayTeam, time, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
+                                if (outcomes.get(homeTeam) != null)
+                                    bundesligaGames.add(new Model(homeTeam, awayTeam, formattedDate, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
                             }
 
                             adapter.notifyDataSetChanged();

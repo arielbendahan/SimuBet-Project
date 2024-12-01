@@ -4,33 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.basket.BasketFragment"
+    tools:context=".ui.hockey.HockeyFragment"
     android:orientation="vertical"
     android:layout_margin="20dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NBA"
+        android:text="NHL"
         android:textSize="25sp"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"/>
-    
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/basketRecyclerView"
+        android:id="@+id/hockeyRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="500dp"
         android:layout_marginBottom="25dp"/>
 
     <Button
-        android:id="@+id/basket_item_checkout_button"
+        android:id="@+id/hockey_item_checkout_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:text="Go to Checkout"
+        android:textColor="@color/white"
         android:enabled="false"/>
 
 </LinearLayout>
