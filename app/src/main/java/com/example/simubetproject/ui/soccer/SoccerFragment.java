@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
 import com.example.simubetproject.ui.basket.BasketballAdapter;
 
 import org.json.JSONArray;
@@ -70,7 +71,7 @@ public class SoccerFragment extends Fragment {
 
         bundesligaGames = new ArrayList<>();
 
-        adapter = new SoccerAdapter(bundesligaGames, selectedBets, this.getContext(), new SoccerAdapter.betsStateChangeListener() {
+        adapter = new SoccerAdapter(bundesligaGames, selectedBets, this.getContext(), new betValidationListener() {
             @Override
             public void onBetStateChange(Model bet) {
                 //bets validation. Communication between an element from the fragment and the bets from the adapter.

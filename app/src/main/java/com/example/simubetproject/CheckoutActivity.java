@@ -60,7 +60,7 @@ public class CheckoutActivity extends AppCompatActivity {
             totalOddMultiplier *= oddMultiplier;
         }
 
-        totalOddsMultiplierTextView.setText("Total multiplier: x" + totalOddMultiplier);
+        totalOddsMultiplierTextView.setText(String.format("Total multiplier: x$%.2f", totalOddMultiplier));
 
         confirmBetButton.setOnClickListener(new View.OnClickListener() {
             @Override

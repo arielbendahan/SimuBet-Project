@@ -1,10 +1,13 @@
 package com.example.simubetproject.ui.basket;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,8 +18,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +41,9 @@ public class BasketFragment extends Fragment {
     private RecyclerView recyclerView;
     private BasketballAdapter adapter;
     private List<Model> basketballGames;
+    private ArrayList<Model> selectedBets;
+    Button goToCheckoutButton;
+
 
     public BasketFragment() {
         // Required empty public constructor
@@ -48,11 +57,40 @@ public class BasketFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
         requestQueue = Volley.newRequestQueue(requireContext());
         recyclerView = view.findViewById(R.id.basketRecyclerView);
+        goToCheckoutButton = view.findViewById(R.id.basket_item_checkout_button);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         basketballGames = new ArrayList<>();
-        adapter = new BasketballAdapter(basketballGames);
+        selectedBets = new ArrayList<>();
+        adapter = new BasketballAdapter(basketballGames, selectedBets, new betValidationListener() {
+            @Override
+            public void onBetStateChange(Model bet) {
+                //bets validation. Communication between an element from the fragment and the bets from the adapter.
+                if (bet.getAmountOddsButtonsPressed() > 1) {
+                    //bet is not valid
+                    goToCheckoutButton.setEnabled(false);
+                    return;
+                }
+
+                goToCheckoutButton.setEnabled(true);
+            }
+        });
+
         recyclerView.setAdapter(adapter);
+
+        goToCheckoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), CheckoutActivity.class);
+
+                intent.putParcelableArrayListExtra("selectedBets", selectedBets);
+
+                view.getContext().startActivity(intent);
+            }
+        });
+
         fetchBasketballData();
+
         return view;
     }
 
