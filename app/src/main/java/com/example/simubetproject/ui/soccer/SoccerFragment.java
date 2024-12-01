@@ -147,7 +147,8 @@ public class SoccerFragment extends Fragment {
                                     }
                                 }
 
-                                bundesligaGames.add(new Model(homeTeam, awayTeam, formattedDate, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
+                                if (outcomes.get(homeTeam) != null)
+                                    bundesligaGames.add(new Model(homeTeam, awayTeam, formattedDate, String.valueOf(outcomes.get(homeTeam)), String.valueOf(outcomes.get(awayTeam)), String.valueOf(outcomes.get("Draw"))));
                             }
 
                             adapter.notifyDataSetChanged();
