@@ -9,7 +9,7 @@
     android:gravity="start">
 
     <TextView
-        android:id="@+id/commenceTimeTextView"
+        android:id="@+id/soccer_item_time_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -26,13 +26,13 @@
         android:layout_marginBottom="10dp">
 
         <TextView
-            android:id="@+id/homeTeamTextView"
+            android:id="@+id/soccer_item_home_team_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="team 1"/>
 
         <TextView
-            android:id="@+id/awayTeamTextView"
+            android:id="@+id/soccer_item_away_team_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="team 2"/>
@@ -57,7 +57,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/homeTeamOddsTextView"
+                    android:id="@+id/soccer_item_home_team_bet_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -65,10 +65,9 @@
                     android:text="team 1"/>
 
                 <Button
-                    android:id="@+id/homeTeamBetButton"
+                    android:id="@+id/soccer_item_home_team_bet_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/oddsButtonColor"
                     android:text="1.34" />
             </LinearLayout>
@@ -81,7 +80,30 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:id="@+id/awayTeamOddsTextView"
+                    android:id="@+id/soccer_item_tie_bet_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Tie"/>
+
+                <Button
+                    android:id="@+id/soccer_item_tie_bet_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/oddsButtonColor"
+                    android:text="2.30" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/soccer_item_away_team_bet_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -89,10 +111,9 @@
                     android:text="team 2"/>
 
                 <Button
-                    android:id="@+id/awayTeamBetButton"
+                    android:id="@+id/soccer_item_away_team_bet_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:backgroundTint="@color/oddsButtonColor"
                     android:text="3.40" />
             </LinearLayout>

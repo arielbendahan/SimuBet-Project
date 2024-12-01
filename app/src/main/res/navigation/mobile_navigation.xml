@@ -16,6 +16,11 @@
         android:label="Soccer"
         tools:layout="@layout/fragment_soccer" />
     <fragment
+        android:id="@+id/nav_hockey"
+        android:name="com.example.simubetproject.ui.hockey.HockeyFragment"
+        android:label="Hockey"
+        tools:layout="@layout/fragment_hockey" />
+    <fragment
         android:id="@+id/nav_history"
         android:name="com.example.simubetproject.ui.history.HistoryFragment"
         android:label="History"
@@ -25,4 +30,5 @@
         android:name="com.example.simubetproject.ui.basket.BasketFragment"
         android:label="Basketball"
         tools:layout="@layout/fragment_basket" />
+
 </navigation>

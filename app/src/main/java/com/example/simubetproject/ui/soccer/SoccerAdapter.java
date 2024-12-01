@@ -1,61 +1,75 @@
-package com.example.simubetproject.ui.basket;
+package com.example.simubetproject.ui.soccer;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
 import com.example.simubetproject.betValidationListener;
-import com.example.simubetproject.ui.soccer.SoccerAdapter;
+import com.example.simubetproject.ui.basket.BasketballAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class BasketballAdapter extends RecyclerView.Adapter<BasketballAdapter.BasketballGameViewHolder> {
+public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerViewHolder> {
 
-    private List<Model> basketballGames;
-
+    private List<Model> soccerGames;
+    //bets chosen by the user, later sent to the checkout
     private ArrayList<Model> selectedBets;
+    private Context context;
 
     //Validating bets
     private betValidationListener listener;
 
+    //private betsStateChangeListener listener;
+    interface betsStateChangeListener {
+        void onBetStateChange(Model bet);
+    }
 
-    public BasketballAdapter(List<Model> basketballGames, ArrayList<Model> selectedBets, betValidationListener listener) {
-        this.basketballGames = basketballGames;
+    public SoccerAdapter(List<Model> soccerGames, ArrayList<Model> selectedBets, Context context, betValidationListener listener) {
+        this.soccerGames = soccerGames;
         this.selectedBets = selectedBets;
+        this.context = context;
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public BasketballGameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.basket_item, parent, false);
-        return new BasketballGameViewHolder(view);
+    public SoccerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.soccer_item, parent, false);
+        return new SoccerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BasketballGameViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SoccerViewHolder holder, int position) {
         //For adding to the selectedList
-        Model homeWinBet, awayWinBet;
+        Model homeWinBet, awayWinBet, tieBet;
 
-        Model game = basketballGames.get(position);
+        Model game = soccerGames.get(position);
+        holder.timeTextView.setText(game.getCommenceTime());
         holder.homeTeamTextView.setText(game.getHomeTeam());
         holder.awayTeamTextView.setText(game.getAwayTeam());
-        holder.commenceTimeTextView.setText(game.getCommenceTime());
-        holder.homeOddsTextView.setText(game.getHomeTeam());
-        holder.awayOddsTextView.setText(game.getAwayTeam());
+        holder.homeTeamOddsTextView.setText(game.getHomeTeam());
+        holder.awayTeamOddsTextView.setText(game.getAwayTeam());
         holder.homeTeamOddsButton.setText(game.getHomeOdds());
         holder.awayTeamOddsButton.setText(game.getAwayOdds());
+        holder.tieOddsButton.setText(game.getTieOdds());
 
         homeWinBet = game;
         awayWinBet = game;
+        tieBet = game;
 
         int originalOddButtonColor = holder.oddsButtonColor;
 
@@ -120,31 +134,61 @@ public class BasketballAdapter extends RecyclerView.Adapter<BasketballAdapter.Ba
                 listener.onBetStateChange(game);
             }
         });
+
+        holder.tieOddsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (game.isTieIsPressed()) {
+                    //remove the bet from the list
+                    selectedBets.remove(tieBet);
+                    //change color back to normal
+                    holder.tieOddsButton.setBackgroundColor(originalOddButtonColor);
+                    //set homeIsPressed to false
+                    game.setTieIsPressed(false);
+                    game.decreaseAmountOddsButtonsPressed();
+                }
+                else {
+                    //add the bets to the list
+                    //set the selected bet
+                    tieBet.setSelectedBet(holder.tieOddsButton.getText().toString());
+                    tieBet.setSelectedTeam("Tie");
+                    //add it to the arraylist
+                    selectedBets.add(tieBet);
+                    //change the color
+                    holder.tieOddsButton.setBackgroundColor(Color.GREEN);
+                    //set homeIsPressed to true
+                    game.setTieIsPressed(true);
+                    game.increaseAmountOddsButtonsPressed();
+                }
+
+                //notify the valid bet slip validation
+                listener.onBetStateChange(game);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return basketballGames.size();
+        return soccerGames.size();
     }
 
-    public static class BasketballGameViewHolder extends RecyclerView.ViewHolder {
-        TextView homeTeamTextView;
-        TextView awayTeamTextView;
-        TextView commenceTimeTextView;
-        TextView homeOddsTextView;
-        TextView awayOddsTextView;
-        Button homeTeamOddsButton, awayTeamOddsButton;
+    public static class SoccerViewHolder extends RecyclerView.ViewHolder {
+
+        TextView timeTextView, homeTeamTextView, awayTeamTextView, homeTeamOddsTextView, awayTeamOddsTextView;
+        Button homeTeamOddsButton, awayTeamOddsButton, tieOddsButton;
         int oddsButtonColor;
 
-        public BasketballGameViewHolder(@NonNull View itemView) {
+        public SoccerViewHolder(@NonNull View itemView) {
             super(itemView);
-            homeTeamTextView = itemView.findViewById(R.id.homeTeamTextView);
-            awayTeamTextView = itemView.findViewById(R.id.awayTeamTextView);
-            commenceTimeTextView = itemView.findViewById(R.id.commenceTimeTextView);
-            homeOddsTextView = itemView.findViewById(R.id.homeTeamOddsTextView);
-            awayOddsTextView = itemView.findViewById(R.id.awayTeamOddsTextView);
-            homeTeamOddsButton = itemView.findViewById(R.id.homeTeamBetButton);
-            awayTeamOddsButton = itemView.findViewById(R.id.awayTeamBetButton);
+
+            timeTextView = itemView.findViewById(R.id.soccer_item_time_textView);
+            homeTeamTextView = itemView.findViewById(R.id.soccer_item_home_team_textView);
+            awayTeamTextView = itemView.findViewById(R.id.soccer_item_away_team_textView);
+            homeTeamOddsTextView = itemView.findViewById(R.id.soccer_item_home_team_bet_textView);
+            awayTeamOddsTextView = itemView.findViewById(R.id.soccer_item_away_team_bet_textView);
+            homeTeamOddsButton = itemView.findViewById(R.id.soccer_item_home_team_bet_button);
+            awayTeamOddsButton = itemView.findViewById(R.id.soccer_item_away_team_bet_button);
+            tieOddsButton = itemView.findViewById(R.id.soccer_item_tie_bet_button);
             oddsButtonColor = itemView.getResources().getColor(R.color.oddsButtonColor);
         }
     }

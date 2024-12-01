@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/bet_time_checkout_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="time"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/bet_home_team_checkout_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="home team"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/bet_away_team_checkout_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="away team"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/bet_chosen_team_checkout_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chosen team"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/bet_chosen_team_odds_checkout_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="odds"
+        android:textSize="18sp"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
