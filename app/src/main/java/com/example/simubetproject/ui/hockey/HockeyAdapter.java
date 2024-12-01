@@ -54,8 +54,8 @@ public class HockeyAdapter extends RecyclerView.Adapter<com.example.simubetproje
         holder.homeTeamTextView.setText(game.getHomeTeam());
         holder.awayTeamTextView.setText(game.getAwayTeam());
         holder.commenceTimeTextView.setText(game.getCommenceTime());
-        holder.homeOddsTextView.setText(game.getHomeOdds());
-        holder.awayOddsTextView.setText(game.getAwayOdds());
+        holder.homeOddsTextView.setText(game.getHomeTeam());
+        holder.awayOddsTextView.setText(game.getAwayTeam());
         holder.homeTeamOddsButton.setText(game.getHomeOdds());
         holder.awayTeamOddsButton.setText(game.getAwayOdds());
 

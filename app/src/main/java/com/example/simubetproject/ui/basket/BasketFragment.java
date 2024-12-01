@@ -66,7 +66,7 @@ public class BasketFragment extends Fragment {
             @Override
             public void onBetStateChange(Model bet) {
                 //bets validation. Communication between an element from the fragment and the bets from the adapter.
-                if (bet.getAmountOddsButtonsPressed() > 1) {
+                if (bet.getAmountOddsButtonsPressed() != 1) {
                     //bet is not valid
                     goToCheckoutButton.setEnabled(false);
                     return;
