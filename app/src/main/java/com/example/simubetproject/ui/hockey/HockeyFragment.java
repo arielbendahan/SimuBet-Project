@@ -1,10 +1,12 @@
 package com.example.simubetproject.ui.hockey;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,8 +19,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +42,8 @@ public class HockeyFragment extends Fragment {
     private List<Model> hockeyGames;
     private RecyclerView recyclerView;
     private HockeyAdapter adapter;
+    private ArrayList<Model> selectedBets;
+    Button goToCheckoutButton;
 
     public HockeyFragment() {
         // Required empty public constructor
@@ -52,10 +58,37 @@ public class HockeyFragment extends Fragment {
         requestQueue = Volley.newRequestQueue(requireContext());
         recyclerView = view.findViewById(R.id.hockeyRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        goToCheckoutButton = view.findViewById(R.id.hockey_item_checkout_button);
 
         hockeyGames = new ArrayList<>();
-        adapter = new HockeyAdapter(hockeyGames);
+        selectedBets = new ArrayList<>();
+
+        adapter = new HockeyAdapter(hockeyGames, selectedBets, new betValidationListener() {
+            @Override
+            public void onBetStateChange(Model bet) {
+                //bets validation. Communication between an element from the fragment and the bets from the adapter.
+                if (bet.getAmountOddsButtonsPressed() > 1) {
+                    //bet is not valid
+                    goToCheckoutButton.setEnabled(false);
+                    return;
+                }
+
+                goToCheckoutButton.setEnabled(true);
+            }
+        });
+
         recyclerView.setAdapter(adapter);
+
+        goToCheckoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(view.getContext(), CheckoutActivity.class);
+
+                intent.putParcelableArrayListExtra("selectedBets", selectedBets);
+
+                view.getContext().startActivity(intent);
+            }
+        });
 
         fetchHockeyData();
         return view;

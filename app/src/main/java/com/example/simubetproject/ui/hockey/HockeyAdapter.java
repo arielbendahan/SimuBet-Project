@@ -2,6 +2,7 @@ package com.example.simubetproject.ui.hockey;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
 import com.example.simubetproject.ui.hockey.HockeyAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +26,15 @@ public class HockeyAdapter extends RecyclerView.Adapter<com.example.simubetproje
 
     private List<Model> hockeyGames;
 
-    public HockeyAdapter(List<Model> hockeyGames) {
+    private ArrayList<Model> selectedBets;
+
+    //Validating bets
+    private betValidationListener listener;
+
+    public HockeyAdapter(List<Model> hockeyGames, ArrayList<Model> selectedBets, betValidationListener listener) {
         this.hockeyGames = hockeyGames;
+        this.selectedBets = selectedBets;
+        this.listener = listener;
     }
 
     @NonNull
@@ -37,28 +47,78 @@ public class HockeyAdapter extends RecyclerView.Adapter<com.example.simubetproje
 
     @Override
     public void onBindViewHolder(@NonNull HockeyGameViewHolder holder, int position) {
+        //For adding to the selectedList
+        Model homeWinBet, awayWinBet;
+
         Model game = hockeyGames.get(position);
         holder.homeTeamTextView.setText(game.getHomeTeam());
         holder.awayTeamTextView.setText(game.getAwayTeam());
         holder.commenceTimeTextView.setText(game.getCommenceTime());
         holder.homeOddsTextView.setText(game.getHomeOdds());
         holder.awayOddsTextView.setText(game.getAwayOdds());
-        holder.homeTeamOddsButton.setText("Bet " + game.getHomeOdds());
-        holder.awayTeamOddsButton.setText("Bet " + game.getAwayOdds());
+        holder.homeTeamOddsButton.setText(game.getHomeOdds());
+        holder.awayTeamOddsButton.setText(game.getAwayOdds());
+
+        homeWinBet = game;
+        awayWinBet = game;
+
+        int originalOddButtonColor = holder.oddsButtonColor;
 
         // Set click listeners for buttons
         holder.homeTeamOddsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
-            intent.putExtra("team", game.getHomeTeam());
-            intent.putExtra("odds", game.getHomeOdds());
-            v.getContext().startActivity(intent);
+            if (game.isHomeIsPressed()) {
+                //remove the bet from the list
+                selectedBets.remove(homeWinBet);
+                //change color back to normal
+                holder.homeTeamOddsButton.setBackgroundColor(originalOddButtonColor);
+                //set homeIsPressed to false
+                game.setHomeIsPressed(false);
+                game.decreaseAmountOddsButtonsPressed();
+            }
+            else {
+                //add the bets to the list
+                //set the selected bet
+                homeWinBet.setSelectedBet(holder.homeTeamOddsButton.getText().toString());
+                homeWinBet.setSelectedTeam(holder.homeTeamTextView.getText().toString());
+                //add it to the arraylist
+                selectedBets.add(homeWinBet);
+                //change the color
+                holder.homeTeamOddsButton.setBackgroundColor(Color.GREEN);
+                //set homeIsPressed to true
+                game.setHomeIsPressed(true);
+                game.increaseAmountOddsButtonsPressed();
+            }
+
+            //notify the valid bet slip validation
+            listener.onBetStateChange(game);
         });
 
         holder.awayTeamOddsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), CheckoutActivity.class);
-            intent.putExtra("team", game.getAwayTeam());
-            intent.putExtra("odds", game.getAwayOdds());
-            v.getContext().startActivity(intent);
+            if (game.isAwayIsPressed()) {
+                //remove the bet from the list
+                selectedBets.remove(awayWinBet);
+                //change color back to normal
+                holder.awayTeamOddsButton.setBackgroundColor(originalOddButtonColor);
+                //set homeIsPressed to false
+                game.setAwayIsPressed(false);
+                game.decreaseAmountOddsButtonsPressed();
+            }
+            else {
+                //add the bets to the list
+                //set the selected bet
+                awayWinBet.setSelectedBet(holder.awayTeamOddsButton.getText().toString());
+                awayWinBet.setSelectedTeam(holder.awayTeamTextView.getText().toString());
+                //add it to the arraylist
+                selectedBets.add(awayWinBet);
+                //change the color
+                holder.awayTeamOddsButton.setBackgroundColor(Color.GREEN);
+                //set homeIsPressed to true
+                game.setAwayIsPressed(true);
+                game.increaseAmountOddsButtonsPressed();
+            }
+
+            //notify the valid bet slip validation
+            listener.onBetStateChange(game);
         });
     }
 
@@ -74,6 +134,7 @@ public class HockeyAdapter extends RecyclerView.Adapter<com.example.simubetproje
         TextView homeOddsTextView;
         TextView awayOddsTextView;
         Button homeTeamOddsButton, awayTeamOddsButton;
+        int oddsButtonColor;
 
         public HockeyGameViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,6 +145,7 @@ public class HockeyAdapter extends RecyclerView.Adapter<com.example.simubetproje
             awayOddsTextView = itemView.findViewById(R.id.awayTeamOddsTextView);
             homeTeamOddsButton = itemView.findViewById(R.id.homeTeamBetButton);
             awayTeamOddsButton = itemView.findViewById(R.id.awayTeamBetButton);
+            oddsButtonColor = itemView.getResources().getColor(R.color.oddsButtonColor);
         }
     }
 }

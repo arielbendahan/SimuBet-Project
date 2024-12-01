@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.simubetproject.CheckoutActivity;
 import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
+import com.example.simubetproject.betValidationListener;
 import com.example.simubetproject.ui.basket.BasketballAdapter;
 
 import java.util.ArrayList;
@@ -30,12 +31,14 @@ public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerView
     private Context context;
 
     //Validating bets
-    private betsStateChangeListener listener;
+    private betValidationListener listener;
+
+    //private betsStateChangeListener listener;
     interface betsStateChangeListener {
         void onBetStateChange(Model bet);
     }
 
-    public SoccerAdapter(List<Model> soccerGames, ArrayList<Model> selectedBets, Context context, betsStateChangeListener listener) {
+    public SoccerAdapter(List<Model> soccerGames, ArrayList<Model> selectedBets, Context context, betValidationListener listener) {
         this.soccerGames = soccerGames;
         this.selectedBets = selectedBets;
         this.context = context;
