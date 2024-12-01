@@ -7,15 +7,17 @@ public class User
     private String email;
     private String username;
     private String type;
+    private double balance;
     // password not needed as Firestore Auth handles it
 
 
-    public User(String firstName, String lastName, String email, String username, String type) {
+    public User(String firstName, String lastName, String email, String username, String type, double balance) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.type = type;
+        this.balance = balance;
     }
 
     public User() {
@@ -60,5 +62,13 @@ public class User
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }
