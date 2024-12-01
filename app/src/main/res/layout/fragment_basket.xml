@@ -22,6 +22,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/basketRecyclerView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="250dp"/>
+
+    <Button
+        android:id="@+id/basket_item_checkout_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to Checkout"
+        android:enabled="false"/>
 
 </LinearLayout>

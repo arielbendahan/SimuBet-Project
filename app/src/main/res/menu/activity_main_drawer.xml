@@ -20,6 +20,9 @@
             android:id="@+id/nav_basket"
             android:icon="@drawable/ic_menu_basket"
             android:title="Basketball" />
+        <item
+            android:id="@+id/nav_hockey"
+            android:title="Hockey" />
     </group>
 
     <item
@@ -49,6 +52,7 @@
     <item
         android:enabled="false"
         android:title=""/>
+
 
     <group android:checkableBehavior="none">
         <item
