@@ -89,7 +89,7 @@ public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerView
                     //add the bets to the list
                     //set the selected bet
                     homeWinBet.setSelectedBet(holder.homeTeamOddsButton.getText().toString());
-                    homeWinBet.setSelectedTeam(holder.homeTeamTextView.getText().toString());
+                    homeWinBet.setSelectedTeam(game.getHomeTeam());
                     //add it to the arraylist
                     selectedBets.add(homeWinBet);
                     //change the color
@@ -120,7 +120,7 @@ public class SoccerAdapter extends RecyclerView.Adapter<SoccerAdapter.SoccerView
                     //add the bets to the list
                     //set the selected bet
                     awayWinBet.setSelectedBet(holder.awayTeamOddsButton.getText().toString());
-                    awayWinBet.setSelectedTeam(holder.awayTeamTextView.getText().toString());
+                    awayWinBet.setSelectedTeam(game.getAwayTeam());
                     //add it to the arraylist
                     selectedBets.add(awayWinBet);
                     //change the color
