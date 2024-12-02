@@ -54,6 +54,7 @@ public class Model implements Parcelable { //implements serializable so it can s
         tieIsPressed = in.readByte() != 0;
         amountOddsButtonsPressed = in.readInt();
         selectedBet = in.readString();
+        selectedTeam = in.readString();
     }
 
     public static final Creator<Model> CREATOR = new Creator<Model>() {
@@ -186,5 +187,6 @@ public class Model implements Parcelable { //implements serializable so it can s
         dest.writeByte((byte) (tieIsPressed ? 1 : 0));
         dest.writeInt(amountOddsButtonsPressed);
         dest.writeString(selectedBet);
+        dest.writeString(selectedTeam);
     }
 }
