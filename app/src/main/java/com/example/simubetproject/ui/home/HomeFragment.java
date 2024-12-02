@@ -10,27 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.simubetproject.R;
 import com.example.simubetproject.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
-    private FragmentHomeBinding binding;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+                             ViewGroup container, Bundle savedInstanceState)
+    {
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        return view;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
     }
 }
