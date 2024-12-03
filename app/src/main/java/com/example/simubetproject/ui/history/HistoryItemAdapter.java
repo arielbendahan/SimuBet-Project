@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.simubetproject.Bet;
+import com.example.simubetproject.Model;
 import com.example.simubetproject.R;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
     private ArrayList<Bet> betHistoryList;
 
     public HistoryItemAdapter(ArrayList<Bet> betHistoryList) {
-        this.betHistoryList = betHistoryList;
+        this.betHistoryList = betHistoryList != null ? betHistoryList : new ArrayList<>();
     }
 
     @NonNull
@@ -32,10 +33,10 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Bet bet = betHistoryList.get(position);
 
-        // Set bet details
-        holder.betDetailsTextView.setText("Bets: " + getBetDetails(bet.getBets()));  // List of bet names
-        holder.anteAmountTextView.setText("Ante Amount: $" + bet.getAnteAmount());
-        holder.possibleWinningTextView.setText("Possible Winning: $" + bet.getPossibleWinning());
+        // Bind data to the views
+        holder.betDetailsTextView.setText("Bets: " + getBetDetails(bet.getSelectedBets()));
+        holder.anteAmountTextView.setText("Ante Amount: $" + bet.getAmountBet());
+        holder.possibleWinningTextView.setText("Possible Winning: $" + bet.getTotalAmountWon());
         holder.betResultTextView.setText("Result: " + bet.getResult());
     }
 
@@ -56,10 +57,14 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
         }
     }
 
-    private String getBetDetails(ArrayList<String> bets) {
+    // Helper method to format bet details
+    private String getBetDetails(ArrayList<Model> selectedBets) {
+        if (selectedBets == null || selectedBets.isEmpty()) {
+            return "No bets placed";
+        }
         StringBuilder betDetails = new StringBuilder();
-        for (String bet : bets) {
-            betDetails.append(bet).append(", ");
+        for (Model model : selectedBets) {
+            betDetails.append(model.toString()).append(",\n"); // Assuming Model has a meaningful toString()
         }
         return betDetails.length() > 0 ? betDetails.substring(0, betDetails.length() - 2) : "";
     }

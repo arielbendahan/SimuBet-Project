@@ -14,7 +14,7 @@ public class Bet {
         // Default constructor required for calls to DataSnapshot.getValue(Bet.class)
     }
 
-    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, double totalOddMultiplier, double totalAmountWon, String result) {
+    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, double totalOddMultiplier, double totalAmountWon) {
         this.userId = userId;
         this.selectedBets = selectedBets;
         this.amountBet = amountBet;
@@ -23,9 +23,9 @@ public class Bet {
         this.result = result;  // Initialize the result
     }
 
-    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, Double totalOddMultiplier, double v) {
-
-    }
+//    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, Double totalOddMultiplier, double v) {
+//
+//    }
 
     // Getters and setters
     public String getUserId() {
