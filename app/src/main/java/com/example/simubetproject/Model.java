@@ -22,7 +22,6 @@ public class Model implements Parcelable { //implements serializable so it can s
     public Model() {
         // Default constructor required for calls to DataSnapshot.getValue(Model.class)
     }
-
     public Model(String homeTeam, String awayTeam, String commenceTime, String homeOdds, String awayOdds) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

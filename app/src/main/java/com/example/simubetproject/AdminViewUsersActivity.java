@@ -1,6 +1,8 @@
 package com.example.simubetproject;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -26,12 +28,15 @@ public class AdminViewUsersActivity extends AppCompatActivity {
     UserAdapter userAdapter;
     List<User> userList = new ArrayList<>();
     DatabaseReference usersRef;
+    Button backToAdminButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_view_users);
+
+        backToAdminButton = findViewById(R.id.backToAdminButton);
 
         userSearchView = findViewById(R.id.userSearchView);
         usersRecyclerView = findViewById(R.id.usersRecyclerView);
@@ -53,6 +58,13 @@ public class AdminViewUsersActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        backToAdminButton.setOnClickListener(v -> {
+            Intent backIntent = new Intent(AdminViewUsersActivity.this, AdminPage.class); // Correct the class reference
+            backIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(backIntent);
+            finish();
+        });
     }
 
     private void fetchUsers() {
@@ -63,13 +75,13 @@ public class AdminViewUsersActivity extends AppCompatActivity {
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
                     if (user != null) {
+                        user.setUserId(userSnapshot.getKey());
                         userList.add(user);
                     }
                 }
                 userAdapter = new UserAdapter(userList, user -> openUserDetails(user));
                 usersRecyclerView.setAdapter(userAdapter);
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -81,7 +93,9 @@ public class AdminViewUsersActivity extends AppCompatActivity {
     private void filterUsers(String query) {
         List<User> filteredList = new ArrayList<>();
         for (User user : userList) {
-            if (user.getUsername().toLowerCase().contains(query.toLowerCase())) {
+            if (user.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
+                    user.getLastName().toLowerCase().contains(query.toLowerCase()) ||
+                    user.getUsername().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(user);
             }
         }
@@ -90,7 +104,12 @@ public class AdminViewUsersActivity extends AppCompatActivity {
     }
 
     private void openUserDetails(User user) {
-        // Open user details page with more info and actions
+        Intent intent = new Intent(AdminViewUsersActivity.this, UserDetailsActivity.class);
+        intent.putExtra("userId", user.getUserId());
+        intent.putExtra("fullName", user.getFirstName() + " " + user.getLastName());
+        intent.putExtra("email", user.getEmail());
+        intent.putExtra("type", user.getType());
+        intent.putExtra("balance", user.getBalance());
+        startActivity(intent);
     }
-
 }

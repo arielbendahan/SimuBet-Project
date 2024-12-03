@@ -16,6 +16,9 @@
 
         <!-- Existing Activities -->
         <activity
+            android:name=".UserDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminViewUsersActivity"
             android:exported="false"
             android:theme="@style/Theme.SimuBetProject" />
