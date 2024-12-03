@@ -123,6 +123,8 @@ public class CheckoutActivity extends AppCompatActivity {
                 selectedBets.clear();
 
                 // Cancel the bet and go back to the previous activity
+                Intent intent1 = new Intent(CheckoutActivity.this, MainActivity.class);
+                startActivity(intent1);
                 finish();
             }
         });
