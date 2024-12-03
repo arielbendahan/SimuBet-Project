@@ -35,8 +35,9 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
 
         // Bind data to the views
         holder.betDetailsTextView.setText("Bets: " + getBetDetails(bet.getSelectedBets()));
+        holder.selectedTeamTextView.setText("Selected Team(s): " + getSelectedTeams(bet.getSelectedBets()));
         holder.anteAmountTextView.setText("Ante Amount: $" + bet.getAmountBet());
-        holder.possibleWinningTextView.setText("Possible Winning: $" + bet.getTotalAmountWon());
+        holder.possibleWinningTextView.setText("Possible Winnings: $" + String.format("%.2f",bet.getTotalAmountWon()));
         holder.betResultTextView.setText("Result: " + bet.getResult());
     }
 
@@ -46,7 +47,7 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView betDetailsTextView, anteAmountTextView, possibleWinningTextView, betResultTextView;
+        TextView betDetailsTextView, anteAmountTextView, possibleWinningTextView, betResultTextView, selectedTeamTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -54,11 +55,14 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             anteAmountTextView = itemView.findViewById(R.id.ante_amount);
             possibleWinningTextView = itemView.findViewById(R.id.possible_winning);
             betResultTextView = itemView.findViewById(R.id.bet_result);
+            selectedTeamTextView = itemView.findViewById(R.id.selected_teams);
+
         }
     }
 
     // Helper method to format bet details
     private String getBetDetails(ArrayList<Model> selectedBets) {
+        // Fall back to a default message if no bets are placed
         if (selectedBets == null || selectedBets.isEmpty()) {
             return "No bets placed";
         }
@@ -67,5 +71,22 @@ public class HistoryItemAdapter extends RecyclerView.Adapter<HistoryItemAdapter.
             betDetails.append(model.toString()).append(",\n"); // Assuming Model has a meaningful toString()
         }
         return betDetails.length() > 0 ? betDetails.substring(0, betDetails.length() - 2) : "";
+    }
+
+    // Helper method to get selected teams
+    private String getSelectedTeams(ArrayList<Model> selectedBets) {
+        // Fall back to a default message if no teams are selected
+        if (selectedBets == null || selectedBets.isEmpty()) {
+            return "No teams selected";
+        }
+
+        // Build a comma-separated list of selected teams
+        StringBuilder selectedTeams = new StringBuilder();
+
+        // Loop through each bet and append the selected team to the list
+        for (Model model : selectedBets) {
+            selectedTeams.append(model.getSelectedTeam()).append(", ");
+        }
+        return selectedTeams.length() > 0 ? selectedTeams.substring(0, selectedTeams.length() - 2) : "";
     }
 }
