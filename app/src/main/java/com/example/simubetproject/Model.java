@@ -20,7 +20,7 @@ public class Model implements Parcelable { //implements serializable so it can s
     private String selectedTeam;
 
     public Model() {
-
+        // Default constructor required for calls to DataSnapshot.getValue(Model.class)
     }
     public Model(String homeTeam, String awayTeam, String commenceTime, String homeOdds, String awayOdds) {
         this.homeTeam = homeTeam;
@@ -57,6 +57,7 @@ public class Model implements Parcelable { //implements serializable so it can s
         tieIsPressed = in.readByte() != 0;
         amountOddsButtonsPressed = in.readInt();
         selectedBet = in.readString();
+        selectedTeam = in.readString();
     }
 
     public static final Creator<Model> CREATOR = new Creator<Model>() {
@@ -189,5 +190,12 @@ public class Model implements Parcelable { //implements serializable so it can s
         dest.writeByte((byte) (tieIsPressed ? 1 : 0));
         dest.writeInt(amountOddsButtonsPressed);
         dest.writeString(selectedBet);
+        dest.writeString(selectedTeam);
+    }
+
+    @Override
+    public String toString() {
+        // Customize this to display meaningful details about the model
+        return homeTeam + " vs " + awayTeam;
     }
 }
