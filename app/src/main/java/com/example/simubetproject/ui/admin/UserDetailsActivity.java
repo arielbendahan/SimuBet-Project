@@ -1,7 +1,8 @@
-package com.example.simubetproject;
+package com.example.simubetproject.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.simubetproject.Bet;
+import com.example.simubetproject.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -72,37 +75,33 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    StringBuilder betStringBuilder = new StringBuilder("Bets:\n\n");
+                    StringBuilder betStringBuilder = new StringBuilder();
+                    int betCount = 1;
                     boolean hasValidBets = false;
 
                     for (DataSnapshot betSnapshot : snapshot.getChildren()) {
                         Bet bet = betSnapshot.getValue(Bet.class);
 
-                        // Ensure that bet is properly loaded and has valid values
                         if (bet != null && bet.getAmountBet() > 0) {
                             hasValidBets = true;
 
-                            // Set the values to individual TextViews
-                            betAmountTextView.setText("Bet Amount: $" + String.format("%.2f", bet.getAmountBet()));
-                            totalOddsTextView.setText("Total Odds: " + String.format("%.2f", bet.getTotalOddMultiplier()));
-                            potentialWinTextView.setText("Potential Win: $" + String.format("%.2f", bet.getTotalAmountWon()));
-
-                            // Optionally append to the bet string for showing all bets in a single view
+                            betStringBuilder.append("Bet ").append(betCount).append("\n");
                             betStringBuilder.append("Bet Amount: $")
                                     .append(String.format("%.2f", bet.getAmountBet())).append("\n");
-
                             betStringBuilder.append("Total Odds: ")
                                     .append(String.format("%.2f", bet.getTotalOddMultiplier())).append("\n");
-
                             betStringBuilder.append("Potential Win: $")
                                     .append(String.format("%.2f", bet.getTotalAmountWon())).append("\n");
+                            betStringBuilder.append("------------------------\n"); // Line break between bets
 
-                            betStringBuilder.append("------------\n"); // Separator between bets
+                            betCount++;
                         }
                     }
 
                     if (hasValidBets) {
-                        // If you want to show a summary of all bets in a separate area, you can also use another TextView.
+                        betAmountTextView.setText(betStringBuilder.toString());
+                        totalOddsTextView.setText("");
+                        potentialWinTextView.setText("");
                     } else {
                         betAmountTextView.setText("This user is not part of any bets yet.");
                         totalOddsTextView.setText("");

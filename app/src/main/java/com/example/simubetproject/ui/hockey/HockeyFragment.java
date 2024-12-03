@@ -94,7 +94,7 @@ public class HockeyFragment extends Fragment {
         return view;
     }
 
-    private void fetchHockeyData() {
+    public void fetchHockeyData() {
         String url = "https://api.the-odds-api.com/v4/sports/icehockey/odds/?regions=us&markets=h2h&bookmakers=draftkings&apiKey=" + API_KEY;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

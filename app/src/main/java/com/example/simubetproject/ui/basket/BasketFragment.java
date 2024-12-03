@@ -95,7 +95,7 @@ public class BasketFragment extends Fragment {
     }
 
     // Method to fetch basketball data from the API
-    private void fetchBasketballData() {
+    public void fetchBasketballData() {
         String url = "https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?regions=us&markets=h2h&bookmakers=draftkings&apiKey=" + API_KEY;
 
         // Uses JsonArrayRequest instead of JsonObjectRequest since the JSON begins as an array

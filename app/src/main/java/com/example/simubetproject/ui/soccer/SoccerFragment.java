@@ -101,7 +101,7 @@ public class SoccerFragment extends Fragment {
         return view;
     }
 
-    private void fetchFootballData() {
+    public void fetchFootballData() {
         String url = "https://api.the-odds-api.com/v4/sports/soccer_germany_bundesliga/odds/?regions=us&markets=h2h&bookmakers=unibet&apiKey=" + API_KEY;
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

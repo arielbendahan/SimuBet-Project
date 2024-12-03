@@ -1,4 +1,4 @@
-package com.example.simubetproject;
+package com.example.simubetproject.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.simubetproject.R;
+import com.example.simubetproject.User;
+import com.example.simubetproject.UserAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
