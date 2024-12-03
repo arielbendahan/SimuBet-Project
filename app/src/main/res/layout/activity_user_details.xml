@@ -5,19 +5,21 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <!-- User Details Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:id="@+id/userDetailsLayout">
 
         <TextView
             android:id="@+id/userFullNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Full Name"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:layout_marginBottom="8dp"
             android:gravity="center" />
 
@@ -26,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:layout_marginBottom="8dp"
             android:gravity="center" />
 
@@ -35,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:layout_marginBottom="8dp"
             android:gravity="center" />
 
@@ -44,11 +46,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Balance"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:layout_marginBottom="16dp"
             android:gravity="center" />
     </LinearLayout>
 
+    <!-- Activate/Deactivate Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,30 +73,57 @@
             android:text="Deactivate Account" />
     </LinearLayout>
 
+    <!-- Bets -->
     <TextView
-        android:id="@+id/betAmountTextView"
+        android:id="@+id/betsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bet Amount: $" />
+        android:text="Bets"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp" />
 
-    <TextView
-        android:id="@+id/totalOddsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Total Odds: " />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp">
 
-    <TextView
-        android:id="@+id/potentialWinTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Potential Win: $" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
+            <TextView
+                android:id="@+id/betAmountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bet Amount: $"
+                android:textSize="18sp"
+                android:gravity="center" />
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/totalOddsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Odds: "
+                android:textSize="18sp"
+                android:gravity="center" />
 
+            <TextView
+                android:id="@+id/potentialWinTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Potential Win: $"
+                android:textSize="18sp"
+                android:gravity="center" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Back Button -->
     <Button
         android:id="@+id/backToUsersButton"
         android:layout_width="match_parent"
@@ -101,6 +131,6 @@
         android:text="Back to Users Page"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
-        android:layout_marginBottom="20dp"/>
-
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp" />
 </LinearLayout>

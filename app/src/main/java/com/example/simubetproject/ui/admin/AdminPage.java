@@ -1,4 +1,4 @@
-package com.example.simubetproject;
+package com.example.simubetproject.ui.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.simubetproject.LoginActivity;
+import com.example.simubetproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminPage extends AppCompatActivity {
@@ -30,6 +29,13 @@ public class AdminPage extends AppCompatActivity {
             Intent intent = new Intent(AdminPage.this, AdminViewUsersActivity.class);
             startActivity(intent);
         });
+
+        viewBetsButton = findViewById(R.id.viewBetsButton);
+        viewBetsButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminPage.this, AdminViewBetsActivity.class);
+            startActivity(intent);
+        });
+
 
         mAuth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logoutAdminButton);

@@ -15,17 +15,20 @@
         android:theme="@style/Theme.SimuBetProject"
         tools:targetApi="31">
         <activity
-            android:name=".UserDetailsActivity"
+            android:name=".ui.admin.AdminViewBetsActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminViewUsersActivity"
+            android:name=".ui.admin.UserDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminViewUsersActivity"
             android:exported="false"
             android:theme="@style/Theme.SimuBetProject" />
         <activity
             android:name=".CheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminPage"
+            android:name=".ui.admin.AdminPage"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"
