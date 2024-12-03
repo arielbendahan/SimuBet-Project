@@ -29,25 +29,17 @@
         android:id="@+id/viewUsersButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View users"
+        android:text="View Users"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
 
-    <Button
-        android:id="@+id/setBetsButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Set new bets"
-        android:backgroundTint="@color/blue"
-        android:textColor="@color/white"
-        android:layout_marginBottom="20dp"/>
 
     <Button
         android:id="@+id/viewBetsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="View ongoing bets"
+        android:text="View Ongoing Bets"
         android:backgroundTint="@color/blue"
         android:textColor="@color/white"
         android:layout_marginBottom="20dp"/>
