@@ -19,6 +19,9 @@ public class Model implements Parcelable { //implements serializable so it can s
     private String selectedBet;
     private String selectedTeam;
 
+    public Model() {
+
+    }
     public Model(String homeTeam, String awayTeam, String commenceTime, String homeOdds, String awayOdds) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

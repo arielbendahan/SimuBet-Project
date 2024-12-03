@@ -3,6 +3,7 @@ package com.example.simubetproject;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,10 +42,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         holder.fullNameTextView.setText(fullName);
         holder.usernameTextView.setText("Username: " + user.getUsername());
         holder.emailTextView.setText("Email: " + user.getEmail());
-        holder.typeTextView.setText("Type: " + user.getType());
+        holder.typeTextView.setText("Account Type: " + user.getType());
         holder.balanceTextView.setText("Balance: $" + String.format("%.2f", user.getBalance()));
 
-        holder.itemView.setOnClickListener(v -> listener.onUserClick(user));
+        holder.viewDetailsButton.setOnClickListener(v -> listener.onUserClick(user));
     }
 
     @Override
@@ -58,6 +59,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         TextView emailTextView;
         TextView typeTextView;
         TextView balanceTextView;
+        Button viewDetailsButton;
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +68,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             emailTextView = itemView.findViewById(R.id.emailTextView);
             typeTextView = itemView.findViewById(R.id.typeTextView);
             balanceTextView = itemView.findViewById(R.id.balanceTextView);
+            viewDetailsButton = itemView.findViewById(R.id.viewDetailsButton);
         }
     }
 }
