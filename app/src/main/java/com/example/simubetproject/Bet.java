@@ -8,21 +8,26 @@ public class Bet {
     private double amountBet;
     private double totalOddMultiplier;
     private double totalAmountWon;
-    // Code below for future implementation; ignore for now
-    //private boolean isBetWon;
+    private String result;  // NEW FIELD: Result of the bet (e.g., "PENDING", "WON", "LOST")
 
     public Bet() {
         // Default constructor required for calls to DataSnapshot.getValue(Bet.class)
     }
 
-    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, double totalOddMultiplier, double totalAmountWon) {
+    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, double totalOddMultiplier, double totalAmountWon, String result) {
         this.userId = userId;
         this.selectedBets = selectedBets;
         this.amountBet = amountBet;
         this.totalOddMultiplier = totalOddMultiplier;
         this.totalAmountWon = totalAmountWon;
+        this.result = result;  // Initialize the result
     }
 
+    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, Double totalOddMultiplier, double v) {
+
+    }
+
+    // Getters and setters
     public String getUserId() {
         return userId;
     }
@@ -63,4 +68,32 @@ public class Bet {
         this.totalAmountWon = totalAmountWon;
     }
 
+    // Getter and setter for result
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public ArrayList<String> getBets() {
+        return null;
+    }
+
+    public String getAnteAmount() {
+        return "";
+    }
+
+    public String getPossibleWinning() {
+        return "";
+    }
+
+    public Object getOddMultiplier() {
+        return null;
+    }
+
+    public Object getAmountWon() {
+        return null;
+    }
 }

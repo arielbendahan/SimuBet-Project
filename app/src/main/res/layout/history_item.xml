@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/bet_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bet Details" />
+
+    <TextView
+        android:id="@+id/ante_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ante Amount: $" />
+
+    <TextView
+        android:id="@+id/possible_winning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Possible Winning: $" />
+
+    <TextView
+        android:id="@+id/bet_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bet Result" />
+</LinearLayout>
