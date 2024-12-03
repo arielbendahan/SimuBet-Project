@@ -2,25 +2,33 @@ package com.example.simubetproject;
 
 public class User
 {
+    private String userId;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
     private String type;
+    private double balance;
     // password not needed as Firestore Auth handles it
 
 
-    public User(String firstName, String lastName, String email, String username, String type) {
+    public User(String userId, String firstName, String lastName, String email, String username, String type, double balance) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.type = type;
+        this.balance = balance;
     }
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
+
+    public String getUserId() { return userId; }
+
+    public void setUserId(String userId) { this.userId = userId; }
 
     public String getFirstName() {
         return firstName;
@@ -60,5 +68,13 @@ public class User
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 }

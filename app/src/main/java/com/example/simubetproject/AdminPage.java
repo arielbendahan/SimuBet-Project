@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminPage extends AppCompatActivity {
 
-    Button logoutButton;
+    Button logoutButton, viewUsersButton, viewBetsButton;
     FirebaseAuth mAuth;
 
     @Override
@@ -24,6 +24,12 @@ public class AdminPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_page);
+
+        viewUsersButton = findViewById(R.id.viewUsersButton);
+        viewUsersButton.setOnClickListener(view -> {
+            Intent intent = new Intent(AdminPage.this, AdminViewUsersActivity.class);
+            startActivity(intent);
+        });
 
         mAuth = FirebaseAuth.getInstance();
         logoutButton = findViewById(R.id.logoutAdminButton);
