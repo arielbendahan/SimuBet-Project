@@ -50,11 +50,6 @@
             </intent-filter>
         </activity>
 
-        <!-- New History Activity -->
-        <activity
-            android:name=".ui.history.HistoryActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>

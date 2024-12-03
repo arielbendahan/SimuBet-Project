@@ -23,10 +23,6 @@ public class Bet {
         this.result = result;  // Initialize the result
     }
 
-//    public Bet(String userId, ArrayList<Model> selectedBets, double amountBet, Double totalOddMultiplier, double v) {
-//
-//    }
-
     // Getters and setters
     public String getUserId() {
         return userId;
@@ -79,14 +75,6 @@ public class Bet {
 
     public ArrayList<String> getBets() {
         return null;
-    }
-
-    public String getAnteAmount() {
-        return "";
-    }
-
-    public String getPossibleWinning() {
-        return "";
     }
 
     public Object getOddMultiplier() {
