@@ -1,6 +1,7 @@
 package com.example.simubetproject.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.simubetproject.LoginActivity;
+import com.example.simubetproject.MainActivity;
 import com.example.simubetproject.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,7 +60,8 @@ public class HomeFragment extends Fragment {
             mAuth.signOut();
             Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
             // Navigate back to LoginActivity (or any other action)
-            requireActivity().finish();
+            Intent intent = new Intent(v.getContext(), LoginActivity.class);
+            v.getContext().startActivity(intent);
         });
 
         // Add other button click listeners if needed
